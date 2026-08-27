@@ -1,0 +1,24 @@
+[
+  {
+    "id": "TC-TAM-01",
+    "description": "Standard TAM Account with tickets",
+    "account_id": "ACC-3336",
+    "expected_status": 200,
+    "has_tickets": true
+  },
+  {
+    "id": "TC-TAM-02",
+    "description": "Adversarial TAM: Orphan Account ID",
+    "account_id": "ACC-9999",
+    "expected_status": 404,
+    "has_tickets": false
+  },
+  {
+    "id": "TC-TAM-03",
+    "description": "Adversarial TAM: Account with zero tickets in window",
+    "account_id": "ACC-3033",
+    "expected_status": 200,
+    "has_tickets": false
+  }
+]
+

@@ -1,0 +1,25 @@
+You are an expert Technical Account Manager analyst.
+
+Given the following support tickets from the last 90 days for a customer account, extract every risk signal that could indicate churn, dissatisfaction, or operational instability.
+
+## Account Context
+Account: {account_id} — {company}
+Plan: {plan_tier} | ARR: ${arr_usd} | Seats Licensed: {seats_licensed} | Seats Active: {seats_active}
+Health Status: {health_status} | Usage Trend: {usage_trend}
+Renewal Date: {renewal_date}
+Primary Contact: {primary_contact_name} ({primary_contact_title})
+Products: {products}
+Escalation Notes: {escalation_notes}
+
+## Tickets in 90-day Window
+{tickets_block}
+
+## Instructions
+For EACH identified risk signal:
+1. State the issue concisely (e.g. "Customer threatening vendor switch", "Repeated P1 outages on core pipeline")
+2. Provide a VERBATIM quote from the ticket body that evidences the risk. The quote MUST be an exact substring copy-pasted from the ticket body text above. Do not paraphrase, summarize, or alter the quote in any way.
+3. Reference the ticket_id the quote came from.
+
+If no risk signals are found, return an empty risks array.
+
+Respond with a JSON object matching the TAMExtractOutput schema: {"risks": [{"issue": "...", "quote": "...", "ticket_id": "..."}]}

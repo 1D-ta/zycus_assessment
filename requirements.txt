@@ -1,0 +1,26 @@
+# Core API
+fastapi==0.115.12
+uvicorn[standard]==0.32.1
+pydantic==2.10.6
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+
+# PyTorch CPU-only version
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.7.1+cpu
+
+# Hybrid retrieval (BM25 + ONNX dense embeddings)
+sentence-transformers==3.4.1
+onnxruntime==1.22.0
+rank-bm25==0.2.2
+numpy==1.26.4
+
+# LLM provider (Gemini) — used from Phase 2
+google-genai==1.14.0
+httpx==0.28.1
+
+# Evaluation
+sse-starlette==2.3.3
+
+# UI — used from Phase 6
+streamlit==1.41.1
