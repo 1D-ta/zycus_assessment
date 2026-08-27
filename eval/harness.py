@@ -59,7 +59,8 @@ async def evaluate_triage(
             top_k=settings.retrieval_top_k,
         )
         latency = time.perf_counter() - start_time
-        await asyncio.sleep(4.0)
+        if settings.llm_provider != "mock":
+            await asyncio.sleep(4.0)
 
         # Match accuracy
         expected = tc["expected"]
@@ -78,9 +79,18 @@ async def evaluate_triage(
 
         # LLM-as-judge scoring
         faithfulness_res = await compute_faithfulness(output.draft_response, context, llm)
-        await asyncio.sleep(4.0)
+        if settings.llm_provider != "mock":
+            await asyncio.sleep(4.0)
         relevance_res = await compute_relevance(output.draft_response, query, llm)
-        await asyncio.sleep(4.0)
+        if settings.llm_provider != "mock":
+            await asyncio.sleep(4.0)
+
+        # Triage pass/fail: passes if exact match is true and faithfulness/relevance scores are >= 0.7.
+        is_pass = exact_match and (faithfulness_res.score >= 0.7) and (relevance_res.score >= 0.7)
+        pass_fail = "PASS" if is_pass else "FAIL"
+
+        # Triage quality score: average of exact match (0 or 1), faithfulness, and relevance.
+        quality_score = float((1.0 if exact_match else 0.0) + faithfulness_res.score + relevance_res.score) / 3.0
 
         res_record = {
             "id": tc["id"],
@@ -93,6 +103,8 @@ async def evaluate_triage(
                 "field_matches": matches,
                 "exact_match": exact_match,
             },
+            "pass_fail": pass_fail,
+            "quality_score": quality_score,
             "metrics": {
                 "faithfulness": {
                     "score": faithfulness_res.score,
@@ -106,8 +118,8 @@ async def evaluate_triage(
         }
         results.append(res_record)
         logger.info(
-            "Finished Triage case %s | Exact Match: %s | Faithfulness: %.2f | Relevance: %.2f",
-            tc["id"], exact_match, faithfulness_res.score, relevance_res.score
+            "Finished Triage case %s | Exact Match: %s | Faithfulness: %.2f | Relevance: %.2f | Pass/Fail: %s | Quality: %.2f",
+            tc["id"], exact_match, faithfulness_res.score, relevance_res.score, pass_fail, quality_score
         )
 
     return results
@@ -149,7 +161,8 @@ async def evaluate_tam(
             )
             latency = time.perf_counter() - start_time
             output_data = output.model_dump()
-            await asyncio.sleep(4.0)
+            if settings.llm_provider != "mock":
+                await asyncio.sleep(4.0)
         except Exception as exc:
             latency = time.perf_counter() - start_time
             failed = True
@@ -179,18 +192,27 @@ async def evaluate_tam(
             
             # LLM-as-judge scoring
             faithfulness_res = await compute_faithfulness(output.executive_summary, context, llm)
-            await asyncio.sleep(4.0)
+            if settings.llm_provider != "mock":
+                await asyncio.sleep(4.0)
             relevance_res = await compute_relevance(
                 output.executive_summary + "\nTalking points: " + ", ".join(output.talking_points),
                 f"Account: {account.get('company', 'Unknown')}. Health: {account.get('health_status', 'Unknown')}. Trend: {account.get('usage_trend', 'Unknown')}.",
                 llm
             )
-            await asyncio.sleep(4.0)
+            if settings.llm_provider != "mock":
+                await asyncio.sleep(4.0)
             
             faithfulness_score = faithfulness_res.score
             faithfulness_reason = faithfulness_res.reasoning
             relevance_score = relevance_res.score
             relevance_reason = relevance_res.reasoning
+
+        # TAM pass/fail: passes if status match is true and quote verification rate >= 0.9.
+        is_pass = status_match and (quote_rate >= 0.9)
+        pass_fail = "PASS" if is_pass else "FAIL"
+
+        # TAM quality score: average of status match, quote verification rate, faithfulness, and relevance.
+        quality_score = float((1.0 if status_match else 0.0) + quote_rate + faithfulness_score + relevance_score) / 4.0
 
         res_record = {
             "id": tc["id"],
@@ -202,6 +224,8 @@ async def evaluate_tam(
             "latency_seconds": latency,
             "error": error_msg if failed else None,
             "predicted": output_data,
+            "pass_fail": pass_fail,
+            "quality_score": quality_score,
             "metrics": {
                 "quote_verification_rate": quote_rate,
                 "faithfulness": {
@@ -216,8 +240,8 @@ async def evaluate_tam(
         }
         results.append(res_record)
         logger.info(
-            "Finished TAM case %s | Status Match: %s | Quote Verification: %.2f | Faithfulness: %.2f",
-            tc["id"], status_match, quote_rate, faithfulness_score
+            "Finished TAM case %s | Status Match: %s | Quote Verification: %.2f | Faithfulness: %.2f | Pass/Fail: %s | Quality: %.2f",
+            tc["id"], status_match, quote_rate, faithfulness_score, pass_fail, quality_score
         )
 
     return results
@@ -234,7 +258,6 @@ async def run_evaluation() -> None:
     tam_results = await evaluate_tam(retriever, llm, settings)
     total_eval_duration = time.time() - start_eval_time
 
-    # Compute aggregates
     # Triage Aggregates
     triage_count = len(triage_results)
     avg_triage_latency = sum(r["latency_seconds"] for r in triage_results) / triage_count if triage_count > 0 else 0
@@ -242,6 +265,8 @@ async def run_evaluation() -> None:
     triage_accuracy = triage_exact_matches / triage_count if triage_count > 0 else 0
     avg_triage_faithfulness = sum(r["metrics"]["faithfulness"]["score"] for r in triage_results) / triage_count if triage_count > 0 else 0
     avg_triage_relevance = sum(r["metrics"]["relevance"]["score"] for r in triage_results) / triage_count if triage_count > 0 else 0
+    triage_pass_rate = sum(1 for r in triage_results if r["pass_fail"] == "PASS") / triage_count if triage_count > 0 else 0
+    avg_triage_quality = sum(r["quality_score"] for r in triage_results) / triage_count if triage_count > 0 else 0
 
     # TAM Aggregates
     tam_count = len(tam_results)
@@ -254,6 +279,8 @@ async def run_evaluation() -> None:
     avg_tam_quote_rate = sum(r["metrics"]["quote_verification_rate"] for r in successful_tams) / success_tam_count if success_tam_count > 0 else 0
     avg_tam_faithfulness = sum(r["metrics"]["faithfulness"]["score"] for r in successful_tams) / success_tam_count if success_tam_count > 0 else 0
     avg_tam_relevance = sum(r["metrics"]["relevance"]["score"] for r in successful_tams) / success_tam_count if success_tam_count > 0 else 0
+    tam_pass_rate = sum(1 for r in tam_results if r["pass_fail"] == "PASS") / tam_count if tam_count > 0 else 0
+    avg_tam_quality = sum(r["quality_score"] for r in tam_results) / tam_count if tam_count > 0 else 0
 
     report = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -268,6 +295,8 @@ async def run_evaluation() -> None:
                 "exact_match_accuracy": triage_accuracy,
                 "average_faithfulness": avg_triage_faithfulness,
                 "average_relevance": avg_triage_relevance,
+                "pass_rate": triage_pass_rate,
+                "average_quality_score": avg_triage_quality,
                 "average_latency_seconds": avg_triage_latency,
             },
             "tam": {
@@ -276,6 +305,8 @@ async def run_evaluation() -> None:
                 "average_quote_verification_rate": avg_tam_quote_rate,
                 "average_faithfulness": avg_tam_faithfulness,
                 "average_relevance": avg_tam_relevance,
+                "pass_rate": tam_pass_rate,
+                "average_quality_score": avg_tam_quality,
                 "average_latency_seconds": avg_tam_latency,
             }
         },

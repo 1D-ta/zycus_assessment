@@ -19,6 +19,19 @@
     "account_id": "ACC-3033",
     "expected_status": 200,
     "has_tickets": false
+  },
+  {
+    "id": "TC-TAM-04",
+    "description": "Standard TAM Account: Initech",
+    "account_id": "ACC-4654",
+    "expected_status": 200,
+    "has_tickets": true
+  },
+  {
+    "id": "TC-TAM-05",
+    "description": "Standard TAM Account: Vertex Solutions",
+    "account_id": "ACC-8113",
+    "expected_status": 200,
+    "has_tickets": true
   }
 ]
-
