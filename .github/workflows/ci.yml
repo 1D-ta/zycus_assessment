@@ -31,11 +31,19 @@ jobs:
           HF_HUB_OFFLINE: 1
         run: |
           python -m app.main &
-          sleep 5
 
       - name: Verify Server Health
         run: |
-          curl --fail http://localhost:8000/health
+          for i in {1..20}; do
+            if curl -s --fail http://localhost:8000/health; then
+              echo "Server is healthy!"
+              exit 0
+            fi
+            echo "Waiting for server to start (attempt $i)..."
+            sleep 2
+          done
+          echo "Server failed to start in time."
+          exit 1
 
       - name: Run Evaluation Harness
         env:
