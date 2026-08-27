@@ -4,11 +4,11 @@ This document outlines the architectural decisions, design tradeoffs, failure mo
 
 ---
 
-## 1. Justification for Dense Semantic Embeddings
+## 1. Hybrid Retrieval Architecture
 
-Although a lexical search algorithm like BM25 is highly effective for exact keyword matches (e.g., specific error codes like `ERR_CONNECTION_TIMEOUT` or product names like `SecureVault`), relying on lexical matching alone does not scale. Support queries frequently describe issues without using the precise terminology found in product documentation. 
+Although a lexical search algorithm like BM25 is highly effective for exact keyword matches (e.g., specific error codes like `ERR_CONNECTION_TIMEOUT` or product names like `SecureVault`), support tickets frequently describe issues using natural language and synonyms that do not exactly match the terminology of product documentation. 
 
-To solve this, the system implements a hybrid search index combining **BM25Okapi** and a dense vector index utilizing a lightweight, CPU-efficient sentence embedding model (`all-MiniLM-L6-v2`) exported to ONNX. 
+To resolve this, the system deploys a hybrid search engine combining **BM25Okapi** and a dense vector index using a lightweight, CPU-efficient sentence embedding model (`all-MiniLM-L6-v2`) in ONNX format. 
 
 ### Why this hybrid architecture was selected:
 - **Lexical Precision (BM25):** Ensures error codes, configuration keys, and exact product feature paths are mapped correctly.
@@ -81,3 +81,4 @@ To scale this prototype to handle a 10x increase in volume (e.g., hundreds of th
 
 3. **Caching Strategy:**
    - Implement an active caching layer (Redis) for account briefs. Since the account history is deterministic based on the 90-day window, briefs can be cached until a new support ticket is filed for that account.
+

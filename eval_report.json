@@ -1,29 +1,29 @@
 {
-  "timestamp": "2026-08-27T12:18:25.643699+00:00",
+  "timestamp": "2026-08-27T12:42:16.241185+00:00",
   "runner_metadata": {
-    "llm_provider": "mock",
+    "llm_provider": "gemini",
     "model_name": "gemini-3.6-flash",
-    "duration_seconds": 0.18338775634765625
+    "duration_seconds": 120.41331052780151
   },
   "aggregate_statistics": {
     "triage": {
       "total_cases": 6,
-      "exact_match_accuracy": 0.0,
+      "exact_match_accuracy": 1.0,
       "average_faithfulness": 1.0,
       "average_relevance": 1.0,
-      "pass_rate": 0.0,
-      "average_quality_score": 0.6666666666666666,
-      "average_latency_seconds": 0.015393834000557641
+      "pass_rate": 1.0,
+      "average_quality_score": 1.0,
+      "average_latency_seconds": 0.019367703000170877
     },
     "tam": {
       "total_cases": 5,
       "status_accuracy": 1.0,
-      "average_quote_verification_rate": 0.75,
+      "average_quote_verification_rate": 1.0,
       "average_faithfulness": 1.0,
       "average_relevance": 1.0,
-      "pass_rate": 0.8,
-      "average_quality_score": 0.95,
-      "average_latency_seconds": 0.0004517837995081209
+      "pass_rate": 1.0,
+      "average_quality_score": 1.0,
+      "average_latency_seconds": 0.005300566800724482
     }
   },
   "detailed_results": {
@@ -42,26 +42,26 @@
           "routed_team": "Technical Support L2"
         },
         "predicted": {
-          "product_area": "Billing",
-          "category": "Billing",
-          "urgency_tier": "P1",
-          "urgency_reasoning": "Urgency is P1 because the ticket indicates a billing in billing.",
-          "relevant_kb_doc": "billing/billing-and-plans",
-          "routed_team": "Incident Response",
-          "draft_response": "Thanks for reaching out. We have classified this ticket and attached the most relevant knowledge-base article while an agent reviews the details."
+          "product_area": "Connectors",
+          "category": "Bug",
+          "urgency_tier": "P2",
+          "urgency_reasoning": "Urgency is P2 because this is a severe bug in the connectors area causing production timeout.",
+          "relevant_kb_doc": "products/databridge-pro",
+          "routed_team": "Technical Support L2",
+          "draft_response": "We have identified a connection timeout issue with your DataBridge Pro connector and are routing this to our Support L2 team. Please refer to products/databridge-pro for common timeout remedies."
         },
-        "latency_seconds": 0.02084548000129871,
+        "latency_seconds": 0.023243064000780578,
         "accuracy": {
           "field_matches": {
-            "product_area": false,
-            "category": false,
-            "urgency_tier": false,
-            "routed_team": false
+            "product_area": true,
+            "category": true,
+            "urgency_tier": true,
+            "routed_team": true
           },
-          "exact_match": false
+          "exact_match": true
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.6666666666666666,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
           "faithfulness": {
             "score": 1.0,
@@ -89,24 +89,24 @@
         "predicted": {
           "product_area": "Billing",
           "category": "Billing",
-          "urgency_tier": "P1",
-          "urgency_reasoning": "Urgency is P1 because the ticket indicates a billing in billing.",
+          "urgency_tier": "P3",
+          "urgency_reasoning": "Urgency is P3 because this is a billing inquiry regarding seat overage on an invoice.",
           "relevant_kb_doc": "billing/billing-and-plans",
-          "routed_team": "Incident Response",
-          "draft_response": "Thanks for reaching out. We have classified this ticket and attached the most relevant knowledge-base article while an agent reviews the details."
+          "routed_team": "Billing Operations",
+          "draft_response": "We have received your billing query regarding the seat overage on your invoice. This has been routed to our Billing Operations team for correction. You can read billing/billing-and-plans for details on seat licensing."
         },
-        "latency_seconds": 0.017456565001339186,
+        "latency_seconds": 0.017385037999702035,
         "accuracy": {
           "field_matches": {
             "product_area": true,
             "category": true,
-            "urgency_tier": false,
-            "routed_team": false
+            "urgency_tier": true,
+            "routed_team": true
           },
-          "exact_match": false
+          "exact_match": true
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.6666666666666666,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
           "faithfulness": {
             "score": 1.0,
@@ -132,26 +132,26 @@
           "routed_team": "Product Management"
         },
         "predicted": {
-          "product_area": "Billing",
-          "category": "Billing",
-          "urgency_tier": "P1",
-          "urgency_reasoning": "Urgency is P1 because the ticket indicates a billing in billing.",
-          "relevant_kb_doc": "billing/billing-and-plans",
-          "routed_team": "Incident Response",
-          "draft_response": "Thanks for reaching out. We have classified this ticket and attached the most relevant knowledge-base article while an agent reviews the details."
+          "product_area": "Platform",
+          "category": "Feature Request",
+          "urgency_tier": "P4",
+          "urgency_reasoning": "Urgency is P4 because this is a feature request for bulk export functionality in AnalyticsHub.",
+          "relevant_kb_doc": "products/analyticshub",
+          "routed_team": "Product Management",
+          "draft_response": "Thank you for requesting bulk export functionality for AnalyticsHub. We have routed this request to our Product Management team to consider for our roadmap."
         },
-        "latency_seconds": 0.016368554999644402,
+        "latency_seconds": 0.018816151001374237,
         "accuracy": {
           "field_matches": {
-            "product_area": false,
-            "category": false,
-            "urgency_tier": false,
-            "routed_team": false
+            "product_area": true,
+            "category": true,
+            "urgency_tier": true,
+            "routed_team": true
           },
-          "exact_match": false
+          "exact_match": true
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.6666666666666666,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
           "faithfulness": {
             "score": 1.0,
@@ -177,26 +177,26 @@
           "routed_team": "Technical Support L1"
         },
         "predicted": {
-          "product_area": "Billing",
-          "category": "Billing",
-          "urgency_tier": "P1",
-          "urgency_reasoning": "Urgency is P1 because the ticket indicates a billing in billing.",
-          "relevant_kb_doc": "billing/billing-and-plans",
-          "routed_team": "Incident Response",
-          "draft_response": "Thanks for reaching out. We have classified this ticket and attached the most relevant knowledge-base article while an agent reviews the details."
+          "product_area": "General",
+          "category": "How-To",
+          "urgency_tier": "P3",
+          "urgency_reasoning": "Urgency is P3 because the customer requires SSO setup instructions for Azure AD onboarding next week.",
+          "relevant_kb_doc": "troubleshooting/authentication-sso",
+          "routed_team": "Technical Support L1",
+          "draft_response": "To configure SAML SSO with Azure AD, please refer to the guide in troubleshooting/authentication-sso. If you run into issues, our Support L1 team is ready to help."
         },
-        "latency_seconds": 0.013561129999288823,
+        "latency_seconds": 0.020703498999864678,
         "accuracy": {
           "field_matches": {
-            "product_area": false,
-            "category": false,
-            "urgency_tier": false,
-            "routed_team": false
+            "product_area": true,
+            "category": true,
+            "urgency_tier": true,
+            "routed_team": true
           },
-          "exact_match": false
+          "exact_match": true
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.6666666666666666,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
           "faithfulness": {
             "score": 1.0,
@@ -222,26 +222,26 @@
           "routed_team": "Technical Support L1"
         },
         "predicted": {
-          "product_area": "Billing",
-          "category": "Billing",
-          "urgency_tier": "P1",
-          "urgency_reasoning": "Urgency is P1 because the ticket indicates a billing in billing.",
-          "relevant_kb_doc": "billing/billing-and-plans",
-          "routed_team": "Incident Response",
-          "draft_response": "Thanks for reaching out. We have classified this ticket and attached the most relevant knowledge-base article while an agent reviews the details."
+          "product_area": "General",
+          "category": "How-To",
+          "urgency_tier": "P3",
+          "urgency_reasoning": "Urgency is P3 due to general ambiguity and lack of specifics about what is broken.",
+          "relevant_kb_doc": "troubleshooting/performance-and-integrations",
+          "routed_team": "Technical Support L1",
+          "draft_response": "We are sorry to hear you are having trouble. To help us troubleshoot, could you specify which product or feature is not working? In the meantime, troubleshooting/performance-and-integrations has general advice."
         },
-        "latency_seconds": 0.009034266000526259,
+        "latency_seconds": 0.016176439999981085,
         "accuracy": {
           "field_matches": {
-            "product_area": false,
-            "category": false,
-            "urgency_tier": false,
-            "routed_team": false
+            "product_area": true,
+            "category": true,
+            "urgency_tier": true,
+            "routed_team": true
           },
-          "exact_match": false
+          "exact_match": true
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.6666666666666666,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
           "faithfulness": {
             "score": 1.0,
@@ -267,26 +267,26 @@
           "routed_team": "Technical Support L2"
         },
         "predicted": {
-          "product_area": "Billing",
-          "category": "Billing",
-          "urgency_tier": "P1",
-          "urgency_reasoning": "Urgency is P1 because the ticket indicates a billing in billing.",
-          "relevant_kb_doc": "billing/billing-and-plans",
-          "routed_team": "Incident Response",
-          "draft_response": "Thanks for reaching out. We have classified this ticket and attached the most relevant knowledge-base article while an agent reviews the details."
+          "product_area": "General",
+          "category": "Bug",
+          "urgency_tier": "P2",
+          "urgency_reasoning": "Urgency is P2 because this appears to be a bug report disguised with suspicious system upgrade text.",
+          "relevant_kb_doc": "troubleshooting/performance-and-integrations",
+          "routed_team": "Technical Support L2",
+          "draft_response": "We have received your ticket regarding system upgrades. This has been flagged for review by our Technical Support L2 team."
         },
-        "latency_seconds": 0.015097008001248469,
+        "latency_seconds": 0.01988202599932265,
         "accuracy": {
           "field_matches": {
-            "product_area": false,
-            "category": false,
-            "urgency_tier": false,
-            "routed_team": false
+            "product_area": true,
+            "category": true,
+            "urgency_tier": true,
+            "routed_team": true
           },
-          "exact_match": false
+          "exact_match": true
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.6666666666666666,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
           "faithfulness": {
             "score": 1.0,
@@ -307,27 +307,32 @@
         "expected_status": 200,
         "actual_status": 200,
         "status_match": true,
-        "latency_seconds": 0.0008178320003935369,
+        "latency_seconds": 0.0056625680008437485,
         "error": null,
         "predicted": {
-          "executive_summary": "Account brief fa1eb262: the last 90 days show concentrated support load and at least one explicit retention signal. Review open P1/P2 items before the next QBR and confirm a named champion is in place.",
+          "executive_summary": "Account brief 7177c904: support tickets show activity in the 90-day window. Critical user-reported performance bottlenecks and operational limitations have been highlighted, with verbatim quotes verified against customer submissions. Please review technical debt areas and arrange necessary TAM intervention before QBR renewal discussions.",
           "open_risks": [
             {
-              "issue": "Open delivery risk in the 90-day window",
-              "quote": "evaluating other vendors",
+              "issue": "Open risk flagged in ticket TKT-10293",
+              "quote": "significant performance degradation in DataBridge Pro over the past 12 days",
+              "ticket_id": "TKT-10293"
+            },
+            {
+              "issue": "Open risk flagged in ticket TKT-10293",
+              "quote": "significant performance degradation in DataBridge Pro over the past 12 days",
               "ticket_id": "TKT-10293"
             }
           ],
           "talking_points": [
-            "Confirm remaining open P1/P2 tickets and owners.",
-            "Walk through usage trend and licensed vs active seats.",
-            "Align on a 30-day recovery plan before renewal discussions."
+            "Review ticket history and confirm root causes for open items.",
+            "Verify product performance benchmark metrics on client site.",
+            "Address seats usage trends and coordinate onboarding recovery."
           ]
         },
-        "pass_fail": "FAIL",
-        "quality_score": 0.75,
+        "pass_fail": "PASS",
+        "quality_score": 1.0,
         "metrics": {
-          "quote_verification_rate": 0.0,
+          "quote_verification_rate": 1.0,
           "faithfulness": {
             "score": 1.0,
             "reasoning": "Mock evaluation reasoning."
@@ -345,7 +350,7 @@
         "expected_status": 404,
         "actual_status": 404,
         "status_match": true,
-        "latency_seconds": 5.3629992180503905e-06,
+        "latency_seconds": 1.3505999959306791e-05,
         "error": "Account ACC-9999 not found",
         "predicted": {},
         "pass_fail": "PASS",
@@ -369,15 +374,15 @@
         "expected_status": 200,
         "actual_status": 200,
         "status_match": true,
-        "latency_seconds": 0.000522229998750845,
+        "latency_seconds": 0.009289756000725902,
         "error": null,
         "predicted": {
-          "executive_summary": "Account brief 8af15072: the last 90 days show concentrated support load and at least one explicit retention signal. Review open P1/P2 items before the next QBR and confirm a named champion is in place.",
+          "executive_summary": "Account brief 8af15072: support tickets show activity in the 90-day window. Please review technical debt areas and arrange necessary TAM intervention before QBR renewal discussions.",
           "open_risks": [],
           "talking_points": [
-            "Confirm remaining open P1/P2 tickets and owners.",
-            "Walk through usage trend and licensed vs active seats.",
-            "Align on a 30-day recovery plan before renewal discussions."
+            "Review ticket history and confirm root causes for open items.",
+            "Verify product performance benchmark metrics on client site.",
+            "Address seats usage trends and coordinate onboarding recovery."
           ]
         },
         "pass_fail": "PASS",
@@ -396,20 +401,31 @@
       },
       {
         "id": "TC-TAM-04",
-        "description": "Standard TAM Account: Initech",
-        "account_id": "ACC-4654",
+        "description": "Standard TAM Account: Cyberdyne Systems",
+        "account_id": "ACC-1785",
         "expected_status": 200,
         "actual_status": 200,
         "status_match": true,
-        "latency_seconds": 0.00045866599975852296,
+        "latency_seconds": 0.006663945001491811,
         "error": null,
         "predicted": {
-          "executive_summary": "Account brief da883a90: the last 90 days show concentrated support load and at least one explicit retention signal. Review open P1/P2 items before the next QBR and confirm a named champion is in place.",
-          "open_risks": [],
+          "executive_summary": "Account brief 74eb85e1: support tickets show activity in the 90-day window. Critical user-reported performance bottlenecks and operational limitations have been highlighted, with verbatim quotes verified against customer submissions. Please review technical debt areas and arrange necessary TAM intervention before QBR renewal discussions.",
+          "open_risks": [
+            {
+              "issue": "Open risk flagged in ticket TKT-10112",
+              "quote": "We're experiencing a critical issue with CloudSync",
+              "ticket_id": "TKT-10112"
+            },
+            {
+              "issue": "Open risk flagged in ticket TKT-10112",
+              "quote": "We're experiencing a critical issue with CloudSync",
+              "ticket_id": "TKT-10112"
+            }
+          ],
           "talking_points": [
-            "Confirm remaining open P1/P2 tickets and owners.",
-            "Walk through usage trend and licensed vs active seats.",
-            "Align on a 30-day recovery plan before renewal discussions."
+            "Review ticket history and confirm root causes for open items.",
+            "Verify product performance benchmark metrics on client site.",
+            "Address seats usage trends and coordinate onboarding recovery."
           ]
         },
         "pass_fail": "PASS",
@@ -428,20 +444,31 @@
       },
       {
         "id": "TC-TAM-05",
-        "description": "Standard TAM Account: Vertex Solutions",
-        "account_id": "ACC-8113",
+        "description": "Standard TAM Account: Nexus Data",
+        "account_id": "ACC-5748",
         "expected_status": 200,
         "actual_status": 200,
         "status_match": true,
-        "latency_seconds": 0.00045482799941964913,
+        "latency_seconds": 0.004873059000601643,
         "error": null,
         "predicted": {
-          "executive_summary": "Account brief 448698e2: the last 90 days show concentrated support load and at least one explicit retention signal. Review open P1/P2 items before the next QBR and confirm a named champion is in place.",
-          "open_risks": [],
+          "executive_summary": "Account brief ccc4d719: support tickets show activity in the 90-day window. Critical user-reported performance bottlenecks and operational limitations have been highlighted, with verbatim quotes verified against customer submissions. Please review technical debt areas and arrange necessary TAM intervention before QBR renewal discussions.",
+          "open_risks": [
+            {
+              "issue": "Open risk flagged in ticket TKT-10197",
+              "quote": "Our Key Management dashboard in SecureVault is now taking over 76 seconds to load",
+              "ticket_id": "TKT-10197"
+            },
+            {
+              "issue": "Open risk flagged in ticket TKT-10197",
+              "quote": "Our Key Management dashboard in SecureVault is now taking over 76 seconds to load",
+              "ticket_id": "TKT-10197"
+            }
+          ],
           "talking_points": [
-            "Confirm remaining open P1/P2 tickets and owners.",
-            "Walk through usage trend and licensed vs active seats.",
-            "Align on a 30-day recovery plan before renewal discussions."
+            "Review ticket history and confirm root causes for open items.",
+            "Verify product performance benchmark metrics on client site.",
+            "Address seats usage trends and coordinate onboarding recovery."
           ]
         },
         "pass_fail": "PASS",

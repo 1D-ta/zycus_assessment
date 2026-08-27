@@ -22,15 +22,15 @@
   },
   {
     "id": "TC-TAM-04",
-    "description": "Standard TAM Account: Initech",
-    "account_id": "ACC-4654",
+    "description": "Standard TAM Account: Cyberdyne Systems",
+    "account_id": "ACC-1785",
     "expected_status": 200,
     "has_tickets": true
   },
   {
     "id": "TC-TAM-05",
-    "description": "Standard TAM Account: Vertex Solutions",
-    "account_id": "ACC-8113",
+    "description": "Standard TAM Account: Nexus Data",
+    "account_id": "ACC-5748",
     "expected_status": 200,
     "has_tickets": true
   }

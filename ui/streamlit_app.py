@@ -187,3 +187,4 @@ with tab2:
                     st.error(f"Failed to connect to API: {e}")
     else:
         st.warning("No accounts found in data/accounts.json.")
+
