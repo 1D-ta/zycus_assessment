@@ -1,0 +1,10 @@
+.env
+zycusenv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.vscode/
+.DS_Store
+*.swp
+*.swo
