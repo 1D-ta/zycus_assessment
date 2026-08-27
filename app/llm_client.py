@@ -152,8 +152,8 @@ class GeminiLLM(LLMClient):
         temperature: float = 0.0,
     ) -> str:
         fallback_reason = None
-        if self.settings.gemini_api_key == "AQ.Ab8RN6LgAs-zTFKN7xDWTH4-0wuyy87dteOMvJGR5lm0GllB5Q":
-            fallback_reason = "using blocked default key"
+        # if self.settings.gemini_api_key == "AQ.Ab8RN6LgAs-zTFKN7xDWTH4-0wuyy87dteOMvJGR5lm0GllB5Q":
+        #     fallback_reason = "using blocked default key"
             
         if fallback_reason is None:
             try:
